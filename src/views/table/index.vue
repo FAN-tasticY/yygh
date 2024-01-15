@@ -83,7 +83,6 @@
 <script>
 
 import api from '@/api/hospset.js'
-import { map } from 'mock/user'
 export default {
   data() {
     return {
