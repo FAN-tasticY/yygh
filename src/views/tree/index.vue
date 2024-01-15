@@ -1,78 +1,53 @@
 <template>
-  <div class="app-container">
-    <el-input v-model="filterText" placeholder="Filter keyword" style="margin-bottom:30px;" />
-
-    <el-tree
-      ref="tree2"
-      :data="data2"
-      :props="defaultProps"
-      :filter-node-method="filterNode"
-      class="filter-tree"
-      default-expand-all
-    />
-
+  <div>
+    <el-form style="width: 75%;margin-top: 20px;" ref="form" :rules="rules" :model="form" label-width="80px">
+      <el-form-item label="医院名称" prop="hosname">
+        <el-input  v-model="form.hosname"></el-input>
+      </el-form-item>
+      <el-form-item label="医院编号">
+        <el-input v-model="form.hoscode"></el-input>
+      </el-form-item>
+      <el-form-item label="医院网址">
+        <el-input v-model="form.apiUrl"></el-input>
+      </el-form-item>
+      <el-form-item label="signKey">
+        <el-input v-model="form.signKey"></el-input>
+      </el-form-item>
+      <el-form-item label="联系人">
+        <el-input v-model="form.contactsName"></el-input>
+      </el-form-item>
+      <el-form-item label="手机号">
+        <el-input v-model="form.contactsPhone"></el-input>
+      </el-form-item>
+      <el-form-item style="text-align: center;">
+        <el-button type="primary" @click="save()">保存</el-button>
+      </el-form-item>
+    </el-form>
   </div>
 </template>
 
 <script>
 export default {
-
-  data() {
-    return {
-      filterText: '',
-      data2: [{
-        id: 1,
-        label: 'Level one 1',
-        children: [{
-          id: 4,
-          label: 'Level two 1-1',
-          children: [{
-            id: 9,
-            label: 'Level three 1-1-1'
-          }, {
-            id: 10,
-            label: 'Level three 1-1-2'
-          }]
-        }]
-      }, {
-        id: 2,
-        label: 'Level one 2',
-        children: [{
-          id: 5,
-          label: 'Level two 2-1'
-        }, {
-          id: 6,
-          label: 'Level two 2-2'
-        }]
-      }, {
-        id: 3,
-        label: 'Level one 3',
-        children: [{
-          id: 7,
-          label: 'Level two 3-1'
-        }, {
-          id: 8,
-          label: 'Level two 3-2'
-        }]
-      }],
-      defaultProps: {
-        children: 'children',
-        label: 'label'
+  data(){
+    return{
+      form:{},
+      rules: {
+        hosname: [
+          { required: true, message: '请输入医院名称', trigger: 'blur' },
+          { min: 2, max: 12, message: '长度在 2 到 12 个字符', trigger: 'blur' }
+        ]
       }
     }
   },
-  watch: {
-    filterText(val) {
-      this.$refs.tree2.filter(val)
-    }
-  },
-
-  methods: {
-    filterNode(value, data) {
-      if (!value) return true
-      return data.label.indexOf(value) !== -1
+  methods:{
+    save(){
+      console.log(this.form)
     }
   }
 }
 </script>
+
+<style>
+
+</style>
 

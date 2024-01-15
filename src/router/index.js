@@ -57,10 +57,10 @@ export const constantRoutes = [
 
   {
     path: '/yygh/hospset',
-    redirect: '/yygh/hospset/list',
     component: Layout,
+    redirect: '/yygh/hospset/list',
     name: 'Example',
-    meta: { title: '预约挂号设置', icon: 'el-icon-s-help' },
+    meta: { title: '医院信息设置', icon: 'el-icon-s-help' },
     children: [
       {
         path: 'list',
@@ -69,10 +69,17 @@ export const constantRoutes = [
         meta: { title: '医院展示列表', icon: 'table' }
       },
       {
-        path: 'set',
-        name: 'set',
+        path: 'save',
+        name: 'save',
         component: () => import('@/views/tree/index'),
-        meta: { title: '医院设置信息', icon: 'tree' }
+        meta: { title: '添加医院信息', icon: 'tree' }
+      },
+      {
+        path: 'edit',
+        name: 'edit',
+        component: () => import('@/views/tree/index'),
+        meta: { title: '医院修改信息', icon: 'tree' },
+        hidden : true
       }
     ]
   },

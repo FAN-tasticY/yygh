@@ -38,28 +38,42 @@
       <el-table-column
         label="医院名称"
         prop="hosname"
+        width="200px"
       >
       </el-table-column>
       <el-table-column
         label="医院编码"
         prop="hoscode"
+        width="140px"
       >
       </el-table-column>
       <el-table-column
         label="医院地址"
         prop="apiUrl"
+        width="200px"
       >
       </el-table-column>
 
       <el-table-column
-        label="创建时间"
-        prop="createTime"
+        label="医院状态"
+        width="150px"
       >
+        <template slot-scope="scope">
+          <span v-if="scope.row.status == 0">可用</span>
+          <span v-else>不可用</span>
+        </template>
       </el-table-column>
+
       <el-table-column
-        label="修改时间"
-        prop="updateTime"
+        label="操作"
+        width="230px"
       >
+        <template slot-scope="scope">
+          <el-button @click="oneDelete(scope.row.id)" size="mini" type="primary">删除</el-button>
+          <el-button size="mini" type="primary" @click="edit(scope.row.id)">修改</el-button>
+          <el-button v-if="scope.row.status == 0" size="mini" type="success" @click="changeStatus(scope.row.id,1)">锁定</el-button>
+          <el-button v-else size="mini" type="success" @click="changeStatus(scope.row.id,0)">解锁</el-button>
+        </template>
       </el-table-column>
     </el-table>
     <div style="margin-top: 10px;margin-bottom: 10px;">
@@ -122,12 +136,32 @@ export default {
       this.getPageInfo()
     },
     batchDelete(){
-      console.log(this.ids)
+      alert("删除选中的数据！")
+      api.batchDelete(this.ids).then(response=>{
+        this.$message({
+          message:'删除成功！',
+          type:'success'
+        })
+        this.getPageInfo()
+      })
     },
     handleSelectionChange(arr){
-      // this.ids = arr.map(item=>{
-      //   return item.id
-      // })
+      this.ids = arr.map(item=>{
+        return item.id
+      })
+    },
+    oneDelete(id){
+      api.oneDelete(id).then(resp=>{
+        this.getPageInfo()
+      })
+    },
+    changeStatus(id,status){
+      api.changeStatus(id,status).then(resp=>{
+        this.getPageInfo()
+      })
+    },
+    edit(id){
+      this.$router.push('')
     }
     
   }
