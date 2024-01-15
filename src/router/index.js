@@ -57,8 +57,8 @@ export const constantRoutes = [
 
   {
     path: '/yygh/hospset',
-    component: Layout,
     redirect: '/yygh/hospset/list',
+    component: Layout,
     name: 'Example',
     meta: { title: '预约挂号设置', icon: 'el-icon-s-help' },
     children: [

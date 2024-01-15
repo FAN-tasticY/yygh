@@ -22,6 +22,12 @@ service.interceptors.request.use(
       // please modify it according to the actual situation
       config.headers['X-Token'] = getToken()
     }
+
+    // 请求头携带的参数 交互格式是json形式的
+    config.headers = {
+      'Content-type':'application/json'
+    }
+
     return config
   },
   error => {
