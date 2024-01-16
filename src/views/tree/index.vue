@@ -20,13 +20,14 @@
         <el-input v-model="form.contactsPhone"></el-input>
       </el-form-item>
       <el-form-item style="text-align: center;">
-        <el-button type="primary" @click="save()">保存</el-button>
+        <el-button type="primary" @click="save('form')">保存</el-button>
       </el-form-item>
     </el-form>
   </div>
 </template>
 
 <script>
+import api from '@/api/hospset.js'
 export default {
   data(){
     return{
@@ -40,8 +41,30 @@ export default {
     }
   },
   methods:{
-    save(){
-      console.log(this.form)
+    saveInfo(){
+      return api.saveInfo(this.form)
+    },
+    save(formName) {
+        this.$refs[formName].validate(async (valid) => {
+          if (valid) {
+            const result = await this.saveInfo()
+            if(result.code == 20000){
+              this.$message.success('操作成功！')
+              this.$router.push('/yygh/hospset')
+            }
+          } else {
+            this.$message.error('信息有误，请核对！')
+            return false;
+          }
+        });
+      },
+  },
+  created(){
+    let id = this.$route.params.id
+    if(id){
+      api.findById(id).then(response=>{
+        this.form = response.data.hospsetObj
+      })
     }
   }
 }

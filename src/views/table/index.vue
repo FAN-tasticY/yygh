@@ -161,7 +161,7 @@ export default {
       })
     },
     edit(id){
-      this.$router.push('')
+      this.$router.push(`/yygh/hospset/edit/${id}`)
     }
     
   }

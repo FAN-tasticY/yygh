@@ -27,5 +27,18 @@ export default {
             url:`/admin/hosp/hospitalSet/changeStatus/${id}/${status}`,
             method:'get'
         })
+    },
+    saveInfo(obj){
+        return service({
+            url:'/admin/hosp/hospitalSet/save',
+            method:'post',
+            data:obj
+        })
+    },
+    findById(id){
+        return service({
+            url:`/admin/hosp/hospitalSet/findById/${id}`,
+            method:'get'
+        })
     }
 }
